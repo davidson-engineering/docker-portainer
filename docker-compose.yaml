@@ -1,18 +1,14 @@
-version: '3'
 services:
-    influxdb:
-        container_name: influxdb
-        image: influxdb:latest
-        ports:
-            - 8086:8086
-        volumes:
-            - ./influxdb-data:/var/lib/influxdb
-        env_file:
-            - .env
-        restart: unless-stopped
-        networks:
-            - influxdb
+  portainer:
+    image: portainer/portainer-ce:alpine
+    container_name: portainer
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - 9443:9443
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "portainer_data:/data"
+    restart: always
 
-networks:
-    influxdb:
-          
+volumes:
+  portainer_data:
